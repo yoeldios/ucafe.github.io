@@ -1,0 +1,340 @@
+<!--
+  Archivo: index.html
+  Proyecto: Cafetería digitalizada para entrega en la asignatura "Tendencias en Negocios Digitales"
+  Instrucciones:
+  - Este es un sitio de una sola página (SPA ligera) listo para publicar en GitHub Pages.
+  - Cambia textos, precios e imágenes donde aparecen los comentarios "TODO: editar".
+  - Si quieres activar envío real de formularios, integra Formspree/Netlify Forms/u otro servicio (ver comentario más abajo).
+
+  Cómo desplegar en GitHub Pages (resumen):
+  1) Crea un repositorio llamado: TU_USUARIO_GITHUB.github.io
+  2) Añade este archivo como index.html en la rama main (o master)
+  3) Haz push y accede a https://TU_USUARIO_GITHUB.github.io
+-->
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cafetería La Esquina — Digitalización</title>
+  <meta name="description" content="Proyecto: digitalización de una cafetería — pedidos online, reservas y presencia web.">
+  <meta name="author" content="Nombre del Estudiante — Asignatura Tendencias en Negocios Digitales">
+  <link rel="icon" href="https://via.placeholder.com/32x32.png?text=C">
+  <style>
+    /* Reset ligero */
+    :root{--accent:#8B5E3C;--accent-2:#CFA27A;--bg:#fff;--muted:#666}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;line-height:1.4;color:#222}
+    a{text-decoration:none;color:inherit}
+
+    /* Layout */
+    header{background:linear-gradient(180deg, #fff 0%, #f7f3f0 100%);border-bottom:1px solid rgba(0,0,0,0.05);position:sticky;top:0;z-index:50}
+    .container{max-width:1100px;margin:0 auto;padding:0 1rem}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem}
+    .brand img{width:44px;height:44px;border-radius:8px;object-fit:cover}
+    .brand h1{font-size:1.05rem;margin:0}
+
+    .menu{display:flex;gap:1rem;align-items:center}
+    .menu a{padding:0.4rem .6rem;border-radius:6px}
+    .menu a:hover{background:rgba(0,0,0,0.03)}
+    .cta{background:var(--accent);color:white;padding:.5rem .8rem;border-radius:8px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:2rem;padding:2.2rem 0;align-items:center}
+    .hero .lead{max-width:40ch}
+    .hero h2{font-size:2rem;margin:.2rem 0}
+    .badge{display:inline-block;padding:.25rem .6rem;background:var(--accent-2);border-radius:999px;font-weight:600;color:#3b2316}
+
+    /* Cards */
+    .card{background:white;border-radius:12px;padding:1rem;box-shadow:0 6px 18px rgba(15,15,15,0.04)}
+
+    /* Menu grid */
+    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+    .menu-item{display:flex;gap:0.8rem;align-items:center}
+    .menu-item img{width:72px;height:72px;border-radius:8px;object-fit:cover}
+    .price{font-weight:700;color:var(--accent)}
+
+    /* Cart */
+    .cart{position:fixed;right:1rem;bottom:1rem;background:var(--accent);color:#fff;padding:.6rem .8rem;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,0.12);cursor:pointer}
+
+    /* Sections */
+    section{padding:2rem 0}
+    h3{margin:.2rem 0 1rem}
+
+    /* Forms */
+    form{display:grid;gap:.6rem}
+    input,textarea,select,button{font:inherit;padding:.6rem;border-radius:8px;border:1px solid #ddd}
+    button{cursor:pointer}
+
+    /* Footer */
+    footer{padding:2rem 0;border-top:1px solid rgba(0,0,0,0.04);text-align:center;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .menu{display:none}
+      .menu-toggle{display:inline-block}
+    }
+
+    /* Small extras */
+    .muted{color:var(--muted);font-size:.95rem}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <img src="https://via.placeholder.com/180x180.png?text=Logo" alt="Logo Cafetería">
+          <div>
+            <h1>La Esquina — Cafetería</h1>
+            <div class="muted">Digitalización: pedidos + reservas + presencia</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <div class="menu" role="navigation" aria-label="Menú principal">
+            <a href="#inicio">Inicio</a>
+            <a href="#menu">Carta</a>
+            <a href="#pedidos">Pedidos</a>
+            <a href="#reservas">Reservas</a>
+            <a href="#contacto">Contacto</a>
+          </div>
+          <button class="cta" onclick="scrollToSection('pedidos')">Pedir ahora</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="inicio" class="hero">
+      <div>
+        <span class="badge">Proyecto: Tendencias en Negocios Digitales</span>
+        <h2>Digitaliza tu cafetería — presencia y ventas online</h2>
+        <p class="lead muted">Esta demo muestra cómo una cafetería tradicional puede ofrecer pedidos online, reservas y un escaparate digital moderno con bajo coste (GitHub Pages + servicios externos).</p>
+        <p>
+          <button class="cta" onclick="scrollToSection('pedidos')">Ver carta y pedir</button>
+          <button style="margin-left:.6rem;padding:.5rem .8rem;border-radius:8px;border:1px solid #ddd;background:#fff" onclick="scrollToSection('reservas')">Reservar mesa</button>
+        </p>
+        <ul style="margin-top:1rem;color:var(--muted)">
+          <li>Click en "Añadir" para simular un pedido.</li>
+          <li>Formulario de reservas para recoger datos de cliente.</li>
+        </ul>
+      </div>
+
+      <aside class="card">
+        <h4>Horario</h4>
+        <p class="muted">Lun — Vie: 8:00 — 20:00<br>Sáb: 9:00 — 18:00 | Dom: cerrado</p>
+        <hr>
+        <h4>Dirección</h4>
+        <p class="muted">C/ Falsa 123, Ciudad — TODO: editar</p>
+        <p style="margin-top:.6rem"><a href="#contacto">Cómo llegar »</a></p>
+      </aside>
+    </section>
+
+    <section id="menu">
+      <h3>La carta</h3>
+      <p class="muted">Selecciona los productos que deseas añadir al carrito.</p>
+      <div class="menu-grid">
+        <!-- Cada .menu-item puede modificarse con imagen, nombre, descripción y precio -->
+        <div class="card menu-item">
+          <img src="https://via.placeholder.com/200x200.png?text=Café" alt="Café">
+          <div style="flex:1">
+            <strong>Café espresso</strong>
+            <div class="muted">Intenso, 30 ml</div>
+            <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between">
+              <div class="price">€1.50</div>
+              <button onclick="addToCart({id:1,name:'Café espresso',price:1.5})">Añadir</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card menu-item">
+          <img src="https://via.placeholder.com/200x200.png?text=Capuchino" alt="Capuchino">
+          <div style="flex:1">
+            <strong>Capuchino</strong>
+            <div class="muted">Espuma cremosa, 200 ml</div>
+            <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between">
+              <div class="price">€2.80</div>
+              <button onclick="addToCart({id:2,name:'Capuchino',price:2.8})">Añadir</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card menu-item">
+          <img src="https://via.placeholder.com/200x200.png?text=Bagel" alt="Bagel">
+          <div style="flex:1">
+            <strong>Bagel con queso</strong>
+            <div class="muted">Receta casera</div>
+            <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between">
+              <div class="price">€3.50</div>
+              <button onclick="addToCart({id:3,name:'Bagel con queso',price:3.5})">Añadir</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card menu-item">
+          <img src="https://via.placeholder.com/200x200.png?text=Tarta" alt="Tarta">
+          <div style="flex:1">
+            <strong>Tarta del día</strong>
+            <div class="muted">Consulta al personal</div>
+            <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:space-between">
+              <div class="price">€2.90</div>
+              <button onclick="addToCart({id:4,name:'Tarta del día',price:2.9})">Añadir</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="pedidos">
+      <h3>Tu pedido</h3>
+      <div class="card" id="cart-area">
+        <p id="empty-cart" class="muted">Carrito vacío. Añade productos desde la carta.</p>
+        <div id="cart-list" style="display:none"></div>
+        <div style="margin-top:1rem;display:flex;gap:.6rem;justify-content:flex-end">
+          <button onclick="clearCart()">Vaciar</button>
+          <button class="cta" onclick="checkout()">Finalizar pedido</button>
+        </div>
+        <p class="muted" style="margin-top:.6rem">(Demo: al finalizar aparecerá un resumen; para pagos reales integrar TPV o PayPal.)</p>
+      </div>
+    </section>
+
+    <section id="reservas">
+      <h3>Reservar mesa</h3>
+      <div class="card" style="max-width:720px">
+        <form id="booking-form" onsubmit="submitReservation(event)">
+          <label>Nombre completo <input required name="name" placeholder="Tu nombre"></label>
+          <label>Teléfono <input required name="phone" placeholder="Teléfono"></label>
+          <label>Fecha y hora <input required type="datetime-local" name="datetime"></label>
+          <label>Nº de personas <input required type="number" name="people" min="1" max="12" value="2"></label>
+          <label>Comentarios <textarea name="notes" rows="3" placeholder="Pedir mesa junto a ventana..."></textarea></label>
+          <div style="display:flex;gap:.6rem;justify-content:flex-end;align-items:center">
+            <button type="reset">Limpiar</button>
+            <button class="cta" type="submit">Enviar reserva</button>
+          </div>
+        </form>
+        <p class="muted" style="margin-top:.6rem">Nota: en la versión de producción conecta este formulario a Formspree o a un back-end para recibir reservas por email.</p>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h3>Contacto</h3>
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:1rem;align-items:start">
+        <div class="card">
+          <h4>Escríbenos</h4>
+          <!--
+            Para recibir mensajes por email sin backend puedes usar Formspree (https://formspree.io) o Netlify Forms.
+            Ejemplo rápido: cambia <form action> por la URL de tu endpoint de Formspree.
+          -->
+          <form id="contact-form" onsubmit="submitContact(event)">
+            <label>Nombre <input required name="name"></label>
+            <label>Email <input required type="email" name="email"></label>
+            <label>Mensaje <textarea required name="message" rows="4"></textarea></label>
+            <div style="display:flex;justify-content:flex-end;gap:.6rem">
+              <button type="reset">Limpiar</button>
+              <button class="cta" type="submit">Enviar</button>
+            </div>
+          </form>
+          <p class="muted" style="margin-top:.6rem">También puedes usar: WhatsApp, Instagram o llamadas (añade enlaces/telefonos).</p>
+        </div>
+
+        <aside class="card">
+          <h4>Localización</h4>
+          <p class="muted">C/ Falsa 123, Ciudad<br>Horario: 8:00 — 20:00</p>
+          <!-- TODO: sustituir por iframe de Google Maps si dispones de API key o enlace de mapa -->
+          <div style="background:#f6f2ef;border-radius:8px;padding:0.6rem;margin-top:.6rem;text-align:center;color:var(--muted)">Mapa (placeholder)</div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+        <div class="muted">© <span id="year"></span> La Esquina — Demo para asignatura</div>
+        <div class="muted">Hecho por: <strong>Nombre del Estudiante</strong></div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="cart" id="cart-btn" aria-label="Abrir carrito" onclick="openCart()">Carrito · <span id="cart-count">0</span></button>
+
+  <script>
+    // Pequeña lógica: carrito en memoria, añadir/quitar, checkout demo
+    const cart = [];
+    const cartCountEl = document.getElementById('cart-count');
+    const cartListEl = document.getElementById('cart-list');
+    const emptyCartEl = document.getElementById('empty-cart');
+
+    function addToCart(product){
+      const existing = cart.find(i => i.id === product.id);
+      if(existing) existing.qty++;
+      else cart.push({...product, qty:1});
+      renderCart();
+      alert(product.name + ' añadido al carrito');
+    }
+
+    function renderCart(){
+      cartCountEl.textContent = cart.reduce((s,i)=>s+i.qty,0);
+      if(cart.length===0){ emptyCartEl.style.display='block'; cartListEl.style.display='none'; return }
+      emptyCartEl.style.display='none'; cartListEl.style.display='block';
+      cartListEl.innerHTML = '';
+      let total = 0;
+      cart.forEach(item=>{
+        total += item.price * item.qty;
+        const div = document.createElement('div');
+        div.style.display='flex';div.style.justifyContent='space-between';div.style.alignItems='center';div.style.padding='.4rem 0';
+        div.innerHTML = `<div><strong>${item.name}</strong> <span style="color:var(--muted)">x${item.qty}</span></div><div>€${(item.price*item.qty).toFixed(2)} <button onclick="changeQty(${item.id},-1)">-</button> <button onclick="changeQty(${item.id},1)">+</button></div>`;
+        cartListEl.appendChild(div);
+      });
+      const totalDiv = document.createElement('div');
+      totalDiv.style.borderTop='1px solid #eee';totalDiv.style.paddingTop='.6rem';totalDiv.style.marginTop='.6rem';
+      totalDiv.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>Total</strong><strong>€${total.toFixed(2)}</strong></div>`;
+      cartListEl.appendChild(totalDiv);
+    }
+
+    function changeQty(id, delta){
+      const item = cart.find(i=>i.id===id);
+      if(!item) return;
+      item.qty += delta;
+      if(item.qty<=0){ const idx = cart.indexOf(item); cart.splice(idx,1) }
+      renderCart();
+    }
+
+    function clearCart(){ if(confirm('¿Vaciar carrito?')){ cart.length=0; renderCart() } }
+
+    function checkout(){
+      if(cart.length===0){ alert('El carrito está vacío.'); return }
+      // Demo: mostramos resumen
+      const resumen = cart.map(i=>`${i.qty}x ${i.name} — €${(i.price*i.qty).toFixed(2)}`).join('\n');
+      const total = cart.reduce((s,i)=>s+i.price*i.qty,0).toFixed(2);
+      alert('Resumen de pedido:\n\n' + resumen + '\n\nTotal: €' + total + '\n\n(Esto es una demo. Integra un TPV o servicio de pagos para producción.)');
+    }
+
+    function openCart(){ document.getElementById('pedidos').scrollIntoView({behavior:'smooth'}) }
+
+    // Forms: demo handlers
+    function submitReservation(e){ e.preventDefault(); const form = e.target; const data = Object.fromEntries(new FormData(form));
+      // En producción: enviar a backend o servicio Formspree
+      alert('Reserva recibida (demo):\n' + JSON.stringify(data,null,2)); form.reset();
+    }
+
+    function submitContact(e){ e.preventDefault(); const form = e.target; const data = Object.fromEntries(new FormData(form));
+      alert('Mensaje enviado (demo):\n' + JSON.stringify(data,null,2)); form.reset();
+    }
+
+    function scrollToSection(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}) }
+
+    // Fecha en footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Render inicial
+    renderCart();
+  </script>
+</body>
+</html>
